@@ -12,8 +12,10 @@ object Utils {
     }
 
     fun transliteration(payload: String, divider: String = " ") : String{
-        val (first, last) = Utils.parsFullName(payload)
-        var nick = "${Utils.kirToLat(first)}_${Utils.kirToLat(last)}"
+        val parts:List<String?> = payload?.split(divider)
+        val first = parts?.getOrNull(0)
+        val last = parts?.getOrNull(1)
+        val nick = "${kirToLat(first)}_${kirToLat(last)}"
         return nick
     }
 
@@ -24,7 +26,7 @@ object Utils {
         val latinas = arrayOf("a","b","v","g","d","e","e","zh","z",
             "i","i","k","l","m","n","o","p","r","s","t",
             "u","f","h","c","ch","sh","sh","","i","","e","yu","ya")
-        var result:String = ""
+        var result = ""
         if (str == null) return result
         else {
             val st = str.toLowerCase().trim()

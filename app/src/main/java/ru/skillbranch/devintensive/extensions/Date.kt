@@ -34,7 +34,7 @@ fun Date.humanizeDiff(date: Date? = Date()) : String{
 
     var res:Long? = (date?.getTime()?.minus(this.time))?.div(1000)
     var out = ""
-    var x = 0L
+    val x:Long
     if(res == null || res <= 1L) return "только что"
     else if(res <= 45L) return "несколько секунд назад"
     else if(res <= 75L) return "минуту назад"
