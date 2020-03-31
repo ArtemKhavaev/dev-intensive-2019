@@ -12,18 +12,22 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
     }
 
     fun listenAnswer(answer: String) : Pair<String, Triple<Int, Int, Int>> {
-        var flag = true
+        var count = 0
         if (question.answers.contains(answer)){
-            question = question.nextQuestion()
-
-            if (question.equals(Question.IDLE.question)){
-                flag = false
-                return "Отлично - ты справился\nНа этом все, вопросов больше нет" to status.color
-            }
-            else return "Отлично - ты справился\n${question.question}" to status.color
+            if (!question.equals(Question.IDLE.question)){
+                question = question.nextQuestion()
+                return "Отлично - ты справился\n${question.question}" to status.color
+            } else return "Отлично - ты справился\n${Question.IDLE.question}" to status.color
         } else {
-            if (flag) status = status.nextStatus()
-            return "Это неправильный ответ. Давай все по новой\n${question.question}" to status.color
+            status = status.nextStatus()
+            count = count + 1
+
+            if(count > 3){
+                status = Status.NORMAL
+                question = Question.NAME
+                return "Это неправильный ответ. Давай все по новой\n${question.question}" to status.color
+            } else return "Это неправильный ответ\n${question.question}" to status.color
+
         }
     }
 
@@ -56,7 +60,7 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
         BDAY("Когда меня создали?", listOf("2993")){
             override fun nextQuestion(): Question = SERIAL
         },
-        SERIAL("Мой серийный номер?", listOf("6666666")){
+        SERIAL("Мой серийный номер?", listOf("2716057")){
             override fun nextQuestion(): Question = IDLE
         },
         IDLE("На этом все, вопросов больше нет", listOf()){
