@@ -60,4 +60,22 @@ object Utils {
 //            else return ""
         }
     }
+
+    fun githabValid(){
+        val isklArr = arrayListOf<String>(
+            "enterprise",
+            "features",
+            "topics",
+            "collections",
+            "trending",
+            "events",
+            "marketplace",
+            "pricing",
+            "nonprofit",
+            "customer-stories",
+            "security",
+            "login",
+            "join"
+        )
+    }
 }
