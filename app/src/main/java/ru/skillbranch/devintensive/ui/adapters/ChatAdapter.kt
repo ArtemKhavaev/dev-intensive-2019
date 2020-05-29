@@ -1,13 +1,9 @@
 package ru.skillbranch.devintensive.ui.adapters
 
 import android.graphics.Color
-import android.text.Layout
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.OrientationEventListener
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -17,7 +13,6 @@ import kotlinx.android.synthetic.main.item_chat_single.*
 import ru.skillbranch.devintensive.R
 import ru.skillbranch.devintensive.models.data.ChatItem
 import ru.skillbranch.devintensive.models.data.ChatType
-import ru.skillbranch.devintensive.ui.custom.AvatarImageView
 
 class ChatAdapter(val listener: (ChatItem) -> Unit) :RecyclerView.Adapter<ChatAdapter.ChatItemViewHolder>(){
     companion object{
@@ -35,7 +30,6 @@ class ChatAdapter(val listener: (ChatItem) -> Unit) :RecyclerView.Adapter<ChatAd
 
     override fun onCreateViewHolder(parent: ViewGroup,viewType: Int): ChatItemViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val convertView = inflater.inflate(R.layout.item_chat_single, parent, false)
         return when(viewType){
             SINGLE_TYPE -> SingleViewHolder(inflater.inflate(R.layout.item_chat_single, parent, false))
             GROUP_TYPE -> GroupViewHolder(inflater.inflate(R.layout.item_chat_group, parent, false))
@@ -46,14 +40,10 @@ class ChatAdapter(val listener: (ChatItem) -> Unit) :RecyclerView.Adapter<ChatAd
     override fun getItemCount(): Int = items.size
 
     override fun onBindViewHolder(holder: ChatItemViewHolder, position: Int) {
-        Log.d("M_ChatAdapter", "onBindViewHolder")
         holder.bind(items[position], listener)
     }
 
     fun updateData(data : List<ChatItem>){
-        Log.d("M_ChatAdapter", "update data adapter - new data ${data.size} hash: ${data.hashCode()}" +
-        "old data ${items.size} hash: ${items.hashCode()}")
-
         val diffCallback = object :DiffUtil.Callback(){
             override fun areItemsTheSame(oldPos: Int, newPos: Int): Boolean = items[oldPos].id == data[newPos].id
 
@@ -111,6 +101,7 @@ class ChatAdapter(val listener: (ChatItem) -> Unit) :RecyclerView.Adapter<ChatAd
 
         }
     }
+
     inner class GroupViewHolder(convertView: View) : ChatItemViewHolder(convertView), ItemTouchViewHolder {
         override fun onItemSelected() {
             itemView.setBackgroundColor(Color.LTGRAY)

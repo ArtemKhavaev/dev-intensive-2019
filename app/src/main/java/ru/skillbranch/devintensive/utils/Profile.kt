@@ -8,7 +8,7 @@ class Profile (
     val rating: Int = 0,
     val respect: Int = 0
 ) {
-    val nickName: String = "John Doe" //TODO implement method
+    val nickName: String = "John Doe"
     val rank: String = "Junior Android Developer"
 
     fun toMap() :Map<String, Any> = mapOf(

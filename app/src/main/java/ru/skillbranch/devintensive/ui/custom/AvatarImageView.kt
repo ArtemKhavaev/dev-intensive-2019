@@ -133,11 +133,13 @@ class AvatarImageView @JvmOverloads constructor(
         if(isAvatarMode) prepareShader(width, height)
         Log.e("AvatarImageView", "setImageBitmap")
     }
+
     override fun setImageDrawable(drawable: Drawable?){
         super.setImageDrawable(drawable)
         if(isAvatarMode)prepareShader(width, height)
         Log.e("AvatarImageView", "setImageDrawable")
     }
+
     override fun setImageResource(@DrawableRes resId: Int){
         super.setImageResource(resId)
         if(isAvatarMode)prepareShader(width, height)
@@ -164,6 +166,7 @@ class AvatarImageView @JvmOverloads constructor(
             super.onRestoreInstanceState(state)
         }
     }
+
     fun setInitials(initials: String){
         Log.e("AvatarImageView", "setInitials: $initials")
         this.initials = initials
@@ -171,12 +174,14 @@ class AvatarImageView @JvmOverloads constructor(
             invalidate()
         }
     }
+
     fun setBorderColor(@ColorInt color: Int){
         Log.e("AvatarImageView", "setBorderColor: $color")
         borderColor = color
         borderPaint.color = borderColor
             invalidate()
     }
+
     fun setBorderWidth(@Dimension width: Int){
         Log.e("AvatarImageView", "setBorderWidth: $width")
         borderWidth = context.dpToPx(width)
@@ -211,6 +216,7 @@ class AvatarImageView @JvmOverloads constructor(
     private fun drawAvatar(canvas:Canvas){
         canvas.drawOval(viewRect.toRectF(), avatarPaint)
     }
+
     private fun drawInitials(canvas: Canvas){
         initialsPaint.color = initialsToColor(initials)
         canvas.drawOval(viewRect.toRectF(), initialsPaint)
@@ -223,6 +229,7 @@ class AvatarImageView @JvmOverloads constructor(
         canvas.drawText(initials, viewRect.exactCenterX(), viewRect.exactCenterY() - offsetY, initialsPaint)
 
     }
+
     private fun initialsToColor(letters: String) : Int{
         val b = letters[0].toByte()
         val len = bgColors.size
@@ -231,6 +238,7 @@ class AvatarImageView @JvmOverloads constructor(
         return bgColors[index]
 
     }
+
     private fun handleLongClick() : Boolean{
         val va = ValueAnimator.ofInt(width, width*2).apply {
             duration = 600
@@ -248,6 +256,7 @@ class AvatarImageView @JvmOverloads constructor(
         return true
 
     }
+
     private fun toggleMod(){
         isAvatarMode = !isAvatarMode
         invalidate()
